@@ -16,6 +16,6 @@ defmodule HangmanImplGameTest do
     game = Game.new_game(word)
 
     assert game.letters == String.codepoints(word)
-    assert Enum.all?(game.letters, &(String.match?(&1, ~r/^[a-z]+$/)))
+    assert Enum.all?(game.letters, &String.match?(&1, ~r/^[a-z]+$/))
   end
 end
