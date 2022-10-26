@@ -12,11 +12,11 @@ defmodule TextClient.Impl.Player do
 
   @spec interact(state) :: :ok
   def interact({_game, _tally = %{game_state: :won}}) do
-    IO.puts("You won!!!!")
+    IO.puts(IO.ANSI.green() <> "You won!!!!")
   end
 
   def interact({_game, tally = %{game_state: :lost}}) do
-    IO.puts("Sorry you lost, word was #{tally.letters |> Enum.join()}")
+    IO.puts(IO.ANSI.red() <> "Sorry you lost, word was #{tally.letters |> Enum.join()}")
   end
 
   def interact({game, tally}) do
@@ -31,9 +31,13 @@ defmodule TextClient.Impl.Player do
     "Welcome! Im thinking of a #{tally.letters |> length} letter word"
   end
 
-  def feedback_for(%{game_state: :good_guess}), do: "Good guess"
-  def feedback_for(%{game_state: :bad_guess}), do: "Sorry, that letter's not in the word"
-  def feedback_for(%{game_state: :already_used}), do: "You already used that letter"
+  def feedback_for(%{game_state: :good_guess}), do: IO.ANSI.blue() <> "Good guess"
+
+  def feedback_for(%{game_state: :bad_guess}),
+    do: IO.ANSI.cyan() <> "Sorry, that letter's not in the word"
+
+  def feedback_for(%{game_state: :already_used}),
+    do: IO.ANSI.cyan() <> "You already used that letter"
 
   def current_word(tally) do
     [
