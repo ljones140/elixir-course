@@ -96,7 +96,6 @@ defmodule Hangman.Impl.Game do
     end)
   end
 
-
   defp maybe_reveal(true, letter), do: letter
   defp maybe_reveal(_, _letter), do: "_"
 
